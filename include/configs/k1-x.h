@@ -173,8 +173,6 @@ enum private_part_offset {
 #define BOOT_TARGET_DEVICES(func) \
 	func(QEMU, qemu, na)
 
-#include <config_distro_bootcmd.h>
-
 #define BOOTENV_DEV_QEMU(devtypeu, devtypel, instance) \
 	"bootcmd_qemu=" \
 	"if env exists kernel_start; then " \
@@ -201,8 +199,9 @@ enum private_part_offset {
 	"kernel_comp_addr_r=" __stringify(CONFIG_SYS_LOAD_ADDR) "\0" \
 	"kernel_comp_size=" __stringify(CONFIG_FASTBOOT_BUF_SIZE) "\0" \
 	"kernel_addr_r=" __stringify(CONFIG_FASTBOOT_BUF_ADDR) "\0" \
-	"ramdisk_addr=" __stringify(RAMDISK_LOAD_ADDR) "\0" \
-	"dtb_addr=" __stringify(DTB_LOAD_ADDR) "\0" \
+	"ramdisk_addr_r=" __stringify(RAMDISK_LOAD_ADDR) "\0" \
+	"fdt_addr_r=" __stringify(DTB_LOAD_ADDR) "\0" \
+	"fdtfile=spacemit/k1-x_MUSE-Pi.dtb\0" \
 	"scriptaddr=0x2c100000\0" \
 	"pxefile_addr_r=0x0c200000\0" \
 	"splashimage=" __stringify(CONFIG_FASTBOOT_BUF_ADDR) "\0" \

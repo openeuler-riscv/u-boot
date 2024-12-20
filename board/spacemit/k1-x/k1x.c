@@ -1011,7 +1011,14 @@ int board_late_init(void)
 	}
 #endif
 
+	// Hack the dtb
+	char fdtname[64] = {};
+	snprintf(fdtname, sizeof(fdtname), "spacemit/%s.dtb", env_get("product_name"));
+	env_set("fdtfile", fdtname);
+
 	run_fastboot_command();
+
+	return 0;
 
 	run_cardfirmware_flash_command();
 
