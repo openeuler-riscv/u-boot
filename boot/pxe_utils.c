@@ -104,7 +104,7 @@ static int get_relfile(struct pxe_context *ctx, const char *file_path,
 	size_t path_len;
 	char relfile[MAX_TFTP_PATH_LEN + 1];
 	char addr_buf[18];
-	ulong size;
+	ulong size=0x10000000;
 	int ret;
 
 	if (file_path[0] == '/' && ctx->allow_abs_path)
