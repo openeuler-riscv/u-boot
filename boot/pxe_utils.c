@@ -538,10 +538,11 @@ static int label_boot(struct pxe_context *ctx, struct pxe_label *label)
 			return 1;
 	}
 
-	if (get_relfile_envaddr(ctx, label->kernel, "kernel_addr_r",
-				NULL) < 0) {
-		printf("Skipping %s for failure retrieving kernel\n",
-		       label->name);
+	int ret = get_relfile_envaddr(ctx, label->kernel, "kernel_addr_r",
+				NULL);
+	if (ret < 0) {
+		printf("Skipping %s for failure retrieving kernel: %d\n",
+		       label->name, ret);
 		return 1;
 	}
 

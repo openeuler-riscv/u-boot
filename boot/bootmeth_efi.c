@@ -143,6 +143,14 @@ static int distro_efi_read_bootflow(struct udevice *dev, struct bootflow *bflow)
 int distro_efi_boot(struct udevice *dev, struct bootflow *bflow)
 {
 	char cmd[50];
+	char buf[64];
+	snprintf(buf, sizeof(buf), "%s", env_get("fdtfile"));
+	printf("fdtfile: %s\n", buf);
+
+	int fdtnode=fdt_path_offset(gd->fdt_blob, "/");
+	printf("fdtnode: %d\n", fdtnode);
+	int ret = fdt_setprop_string((void *)gd->fdt_blob, fdtnode, "model", buf);
+	printf("fdt_setprop_string: %d\n", ret);
 
 	/*
 	 * At some point we can add a real interface to bootefi so we can call
