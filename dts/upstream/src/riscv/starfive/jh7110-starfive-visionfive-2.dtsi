@@ -11,6 +11,31 @@
 	aliases {
 		ethernet1 = &gmac1;
 	};
+
+	leds {
+		compatible = "gpio-leds";
+		led_act: led-act {
+			label = "act";
+			gpios = <&aongpio 3 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+	};
+};
+
+&aongpio {
+	status = "okay";
+	led_act_pin: led-act {
+		ack-pin {
+			pinmux = <GPIOMUX(3, 0, 0, GPI_NONE)>;
+			drive-strength = <12>;
+		};
+	};
+};
+
+&led_act {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&led_act_pin>;
 };
 
 &gmac0 {
