@@ -9,6 +9,15 @@
 / {
 	model = "Milk-V Mars";
 	compatible = "milkv,mars", "starfive,jh7110";
+
+	leds {
+		compatible = "gpio-leds";
+		led_act: led-act {
+			label = "act";
+			gpios = <&aongpio 3 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+	};
 };
 
 &gmac0 {
@@ -65,6 +74,22 @@
 			slew-rate = <0>;
 		};
 	};
+};
+
+&aongpio {
+	status = "okay";
+	led_act_pin: led-act {
+		ack-pin {
+			pinmux = <GPIOMUX(3, 0, 0, GPI_NONE)>;
+			drive-strength = <12>;
+		};
+	};
+};
+
+&led_act {
+	status = "okay";
+	pinctrl-names = "default";
+	pinctrl-0 = <&led_act_pin>;
 };
 
 &usb0 {
