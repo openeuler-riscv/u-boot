@@ -35,15 +35,4 @@ config BOARD_SPECIFIC_OPTIONS # dummy
 	imply CMD_PING
 	imply CMD_MMC
 
-config BR2_EXTRA_ENV
-	string "user custom environment setting"
-config BOOT_NFS
-	int "user launch sel"
-	default "0"
-
-config ROOTFS_NFS_PATH
-	string "user custom environment setting : nfs rootfs path"
-config TFTP_SERVERIP
-	string "user custom environment setting : tftp server ip"
-
 endif
