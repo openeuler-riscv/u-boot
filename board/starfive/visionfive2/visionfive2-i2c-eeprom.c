@@ -538,7 +538,7 @@ int mac_read_from_eeprom(void)
 /**
  * get_pcb_revision_from_eeprom - get the PCB revision
  *
- * 1.2A return 'A'/'a', 1.3B return 'B'/'b',other values are illegal
+ * 1.2A return 0xa1, 1.3B return 0xb2, other values are illegal
  */
 u8 get_pcb_revision_from_eeprom(void)
 {
@@ -547,7 +547,7 @@ u8 get_pcb_revision_from_eeprom(void)
 	if (read_eeprom())
 		return pv;
 
-	return pbuf.eeprom.atom1.data.pstr[6];
+	return pbuf.eeprom.atom4.data.pcb_revision;
 }
 
 /**

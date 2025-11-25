@@ -61,12 +61,10 @@ static void set_fdtfile(void)
 		fdtfile = "starfive/jh7110-pine64-star64.dtb";
 	} else if (!strncmp(get_product_id_from_eeprom(), "VF7110", 6)) {
 		switch (get_pcb_revision_from_eeprom()) {
-		case 'a':
-		case 'A':
+		case 0xa1:
 			fdtfile = "starfive/jh7110-starfive-visionfive-2-v1.2a.dtb";
 			break;
-		case 'b':
-		case 'B':
+		case 0xb2:
 			fdtfile = "starfive/jh7110-starfive-visionfive-2-v1.3b.dtb";
 			break;
 		default:
