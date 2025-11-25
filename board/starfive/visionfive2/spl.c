@@ -148,6 +148,12 @@ int board_fit_config_name_match(const char *name)
 		case 0xb2:
 			return 0;
 		}
+	} else if (!strcmp(name, "starfive/jh7110-orangepi-rv") &&
+		    !strncmp(get_product_id_from_eeprom(), "VF7110", 6)) {
+		switch (get_pcb_revision_from_eeprom()) {
+		case 0x01:
+			return 0;
+		}
 	}
 
 	return -EINVAL;

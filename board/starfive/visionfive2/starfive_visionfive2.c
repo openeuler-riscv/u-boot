@@ -67,6 +67,9 @@ static void set_fdtfile(void)
 		case 0xb2:
 			fdtfile = "starfive/jh7110-starfive-visionfive-2-v1.3b.dtb";
 			break;
+		case 0x01:
+			fdtfile = "starfive/jh7110-orangepi-rv.dtb";
+			break;
 		default:
 			log_err("Unknown revision\n");
 			return;

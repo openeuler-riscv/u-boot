@@ -538,7 +538,7 @@ int mac_read_from_eeprom(void)
 /**
  * get_pcb_revision_from_eeprom - get the PCB revision
  *
- * 1.2A return 0xa1, 1.3B return 0xb2, other values are illegal
+ * 1.2A return 0xa1, 1.3B return 0xb2, OPiRV return 0x01, other values are illegal
  */
 u8 get_pcb_revision_from_eeprom(void)
 {
