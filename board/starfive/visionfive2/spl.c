@@ -60,7 +60,7 @@ int spl_board_init_f(void)
 	return 0;
 }
 
-u32 spl_boot_device(void)
+void board_boot_order(u32 *spl_boot_list)
 {
 	u32 mode;
 
@@ -68,20 +68,31 @@ u32 spl_boot_device(void)
 				& JH7110_BOOT_MODE_SELECT_MASK;
 	switch (mode) {
 	case 0:
-		return BOOT_DEVICE_SPI;
+		spl_boot_list[0] = BOOT_DEVICE_SPI;
+		spl_boot_list[1] = BOOT_DEVICE_NONE;
+		break;
 
 	case 1:
-		return BOOT_DEVICE_MMC2;
+		spl_boot_list[0] = BOOT_DEVICE_MMC2;
+		spl_boot_list[1] = BOOT_DEVICE_NONE;
+		break;
 
 	case 2:
-		return BOOT_DEVICE_MMC1;
+		spl_boot_list[0] = BOOT_DEVICE_MMC1;
+		spl_boot_list[1] = BOOT_DEVICE_NONE;
+		break;
 
 	case 3:
-		return BOOT_DEVICE_UART;
+		/* Boot from SD with YMODEM UART fallback. */
+		spl_boot_list[0] = BOOT_DEVICE_MMC2;
+		spl_boot_list[1] = BOOT_DEVICE_UART;
+		spl_boot_list[2] = BOOT_DEVICE_NONE;
+		break;
 
 	default:
 		debug("Unsupported boot device 0x%x.\n", mode);
-		return BOOT_DEVICE_NONE;
+		spl_boot_list[0] = BOOT_DEVICE_NONE;
+		break;
 	}
 }
 
