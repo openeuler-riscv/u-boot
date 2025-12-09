@@ -330,6 +330,7 @@ void fastboot_mtd_flash_write(const char *cmd, void *download_buffer,
 	struct mtd_info *mtd = NULL;
 	int ret;
 	char mtd_partition[20] = {'\0'};
+	char *token = NULL;
 	char ubi_volume[20] = {'\0'};
 	char cmd_buf[256];
 	int need_erase = 1;
@@ -351,6 +352,31 @@ void fastboot_mtd_flash_write(const char *cmd, void *download_buffer,
 		fdev->mtd_table = malloc(10);
 		memset(fdev->gptinfo.gpt_table, '\0', 10);
 		memset(fdev->mtd_table, '\0', 10);
+	}
+
+	/* Check commands and process them */
+	if (strchr(cmd, '-') != NULL) {
+		char *cmd_copy = strdup(cmd);
+		token = strtok(cmd_copy, "-");
+		token = strtok(NULL, "-");
+		if (token != NULL) {
+			strcpy(mtd_partition, token);
+			cmd = mtd_partition;
+
+			token = strtok(NULL, "-");
+			if (token != NULL) {
+				strcpy(ubi_volume, token);
+			}
+		}
+
+		free(cmd_copy);
+		printf("mtd_partition: %s\n", mtd_partition);
+		printf("ubi_volume: %s\n", ubi_volume);
+		const char *last_erased = env_get("last_erased_partition");
+		need_erase = last_erased == NULL || strcmp(last_erased, mtd_partition) != 0;
+	} else {
+		ubi_volume[0] = '\0';
+		printf("Normal mtd partition ......\n");
 	}
 
 	if (!strncmp(cmd, "mtd", 3)){
