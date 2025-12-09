@@ -314,6 +314,18 @@
 			status = "disabled";
 		};
 
+		eth1: ethernet@cac81000 {
+			compatible = "spacemit,k1x-emac";
+			reg = <0x00000000 0xCAC81000 0x00000000 0x00000420>;
+			ctrl-reg = <0x3ec>;
+			dline-reg = <0x3f0>;
+			clocks = <&ccu CLK_EMAC1_BUS>;
+			clock-names = "emac-clk";
+			resets = <&reset RESET_EMAC1>;
+			reset-names = "emac-reset";
+			status = "disabled";
+		};
+
 		udc: udc@c0900100 {
 			compatible = "spacemit,mv-udc";
 			reg = <0x0 0xc0900100 0x0 0x4000>;

@@ -181,6 +181,15 @@
 				algo = "crc32";
 			};
 		};
+		fdt_19 {
+			description = "x1_orangepi-r2s";
+			type = "flat_dt";
+			compression = "none";
+			data = /incbin/("../dtb/x1_orangepi-r2s.dtb");
+			hash-1 {
+				algo = "crc32";
+			};
+		};
 	};
 
 	configurations {
@@ -274,6 +283,11 @@
 			description = "x1_orangepi-rv2";
 			loadables = "uboot";
 			fdt = "fdt_18";
+		};
+		conf_19 {
+			description = "x1_orangepi-r2s";
+			loadables = "uboot";
+			fdt = "fdt_19";
 		};
 	};
 };
