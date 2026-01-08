@@ -441,6 +441,11 @@ int board_late_init(void)
 	lpcpu_misc_func();
 #endif
 	request_power_pd(1, 0x8);
+
+	if ((readl((void *)(0x51828000 + 0x33C)) & 0b11) == 0b11) {
+		printf("Booted from USB MSB, skipping autoboot.\n");
+		env_set("bootcmd", NULL);
+	}
 	return 0;
 }
 

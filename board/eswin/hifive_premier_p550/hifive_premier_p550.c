@@ -303,6 +303,11 @@ int board_late_init(void)
 #ifdef CONFIG_ESWIN_UMBOX
 	lpcpu_misc_func();
 #endif
+
+	if ((readl((void *)(0x51828000 + 0x33C)) & 0b11) == 0b11) {
+		printf("Booted from USB MSB, skipping autoboot.\n");
+		env_set("bootcmd", NULL);
+	}
 	return 0;
 }
 
