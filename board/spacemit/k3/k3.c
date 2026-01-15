@@ -951,6 +951,8 @@ int board_late_init(void)
 	get_reboot_config();
 	run_fastboot_command();
 
+	return 0;
+
 	if (BOOT_MODE_SD == get_boot_mode()) {
 		try_flash_image_from_card();
 	}
