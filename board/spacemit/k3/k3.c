@@ -949,6 +949,14 @@ int board_late_init(void)
 #endif
 
 	get_reboot_config();
+
+	// Hack the dtb
+	if (!env_get("fdtfile")) {
+		char fdtname[64] = {};
+		snprintf(fdtname, sizeof(fdtname), "spacemit/%s.dtb", env_get("product_name"));
+		env_set("fdtfile", fdtname);
+	}
+
 	run_fastboot_command();
 
 	return 0;
