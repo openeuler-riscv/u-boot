@@ -1936,6 +1936,21 @@ int _get_available_blk_or_part(char **blk_dev, int *index, const char *partition
 #endif
 
 #ifdef CONFIG_FASTBOOT_SUPPORT_BLOCK_DEV_NAME
+	static bool scan_scsi = false;
+	/*nvme devices need scan at first*/
+	if (!scan_scsi){
+		if (!strncmp("scsi", CONFIG_FASTBOOT_SUPPORT_BLOCK_DEV_NAME, 4)
+#ifdef CONFIG_FASTBOOT_SUPPORT_SECOND_BLOCK_DEV_NAME
+			|| !strncmp("scsi", CONFIG_FASTBOOT_SUPPORT_SECOND_BLOCK_DEV_NAME, 4)
+#endif
+		){
+			run_command("scsi scan", 0);
+			scan_scsi = true;
+		}
+	}
+#endif
+
+#ifdef CONFIG_FASTBOOT_SUPPORT_BLOCK_DEV_NAME
 	if (strlen(CONFIG_FASTBOOT_SUPPORT_BLOCK_DEV_NAME) > 0){
 		*blk_dev = CONFIG_FASTBOOT_SUPPORT_BLOCK_DEV_NAME;
 		*index = CONFIG_FASTBOOT_SUPPORT_BLOCK_DEV_INDEX;
