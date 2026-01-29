@@ -42,6 +42,15 @@ static int do_get_part_info(struct blk_desc **dev_desc, const char *name,
 	/* First try partition names on the default device */
 	*dev_desc = blk_get_dev(blk_dev, blk_index);
 	if (*dev_desc) {
+		// support raw disk mode
+		if (!strncmp("scsi", name, 4) || !strncmp("nvme", name, 4)) {
+			strlcpy((char *)&info->name, name, sizeof(info->name));
+			info->start	= 0;
+			info->size	= (*dev_desc)->lba;
+			info->blksz	= (*dev_desc)->blksz;
+			return 0;
+		}
+
 		ret = part_get_info_by_name(*dev_desc, name, info);
 		if (ret >= 0)
 			return ret;

@@ -557,6 +557,10 @@ static void flash(char *cmd_parameter, char *response)
 			mtd_flash = true;
 		if (!strncmp("gpt", cmd_parameter, 3))
 			mtd_flash = false;
+		if (!strncmp("nvme", cmd_parameter, 4))
+			mtd_flash = false;
+		if (!strncmp("scsi", cmd_parameter, 4))
+			mtd_flash = false;
 
 		if (mtd_flash){
 			fastboot_mtd_flash_write(cmd_parameter, fastboot_buf_addr, image_size,
