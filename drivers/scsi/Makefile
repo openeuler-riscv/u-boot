@@ -4,7 +4,7 @@
 # Wolfgang Denk, DENX Software Engineering, wd@denx.de.
 
 ifndef CONFIG_SPL_BUILD
-obj-$(CONFIG_DM_SCSI) += scsi-uclass.o
+obj-$(CONFIG_DM_SCSI) += scsi-uclass.o scsi-bootdev.o
 obj-$(CONFIG_SCSI) += scsi.o
 endif
 
