@@ -35,6 +35,7 @@ config SPACEMIT_BUILD_BIN
 config BOARD_SPECIFIC_OPTIONS # dummy
 	def_bool y
 	select SPACEMIT_X100
+	select REMOTEPROC
 	imply BOARD_LATE_INIT
 
 choice
