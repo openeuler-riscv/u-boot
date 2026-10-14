@@ -53,7 +53,7 @@ config ENV_IS_NOWHERE
 		     !ENV_IS_IN_MMC && !ENV_IS_IN_NAND && \
 		     !ENV_IS_IN_NVRAM && !ENV_IS_IN_ONENAND && \
 		     !ENV_IS_IN_REMOTE && !ENV_IS_IN_SPI_FLASH && \
-		     !ENV_IS_IN_UBI
+		     !ENV_IS_IN_UBI && !ENV_IS_IN_MTD
 	help
 	  Define this if you don't want to or can't have an environment stored
 	  on a storage medium. In this case the environment will still exist
